@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<colorTheme id="31593" name="Visual Studio Dark, no Bold Text" modified="2014-10-21 01:30:59" author="Adam Froio">
+    <searchResultIndication color="#464467" />
+    <filteredSearchResultIndication color="#3F3F6A" />
+    <occurrenceIndication color="#113D6F" />
+    <writeOccurrenceIndication color="#2D4765" />
+    <findScope color="#BCADAD" />
+    <deletionIndication color="#E0E2E4" />
+    <sourceHoverBackground color="#A19879" />
+    <singleLineComment color="#57A64A" bold="false" italic="true" />
+    <multiLineComment color="#57A64A" italic="true" />
+    <commentTaskTag color="#57A64A" bold="true" />
+    <javadoc color="#57A64A" />
+    <javadocLink color="#A893CC" bold="true" underline="true" strikethrough="false" />
+    <javadocTag color="#9393CC" />
+    <javadocKeyword color="#CC9393" />
+    <class color="#4EC9B0" />
+    <interface color="#B8D7A3" />
+    <method color="#DCDCDC" />
+    <methodDeclaration color="#DCDCDC" />
+    <bracket color="#FFFFFF" />
+    <number color="#B5CEA8" />
+    <string color="#D69D85" />
+    <operator color="#DCDCDC" />
+    <keyword color="#569CD6" />
+    <annotation color="#4EC9B0" />
+    <staticMethod color="#DCDCDC" italic="true" />
+    <localVariable color="#C8C8C8" />
+    <localVariableDeclaration color="#C8C8C8" />
+    <field color="#C8C8C8" />
+    <staticField color="#C8C8C8" italic="true" />
+    <staticFinalField color="#C8C8C8" italic="true" />
+    <deprecatedMember color="#C8C8C8" underline="false" strikethrough="true" />
+    <enum color="#B8D7A3" />
+    <inheritedMethod color="#C8C8C8" />
+    <abstractMethod color="#4EC9B0" />
+    <parameterVariable color="#E0E2E4" />
+    <typeArgument color="#B58900" />
+    <typeParameter color="#B58900" />
+    <constant color="#2AA198" />
+    <background color="#1E1E1E" />
+    <currentLine color="#0F0F0F" />
+    <foreground color="#DCDCDC" />
+    <lineNumber color="#569CD6" />
+    <selectionBackground color="#3399FF" />
+    <selectionForeground color="#DCDCDC" />
+</colorTheme>
