@@ -22,29 +22,35 @@ public class Rooter
 		this.precision = precision;
 	}
  
+	/// Returns the square root of x. If x is negative, returns -1.
 	public double sqrt(double x)
 	{
 		double one = x / 2, two;
 		double result = one;
 		boolean found = false;
-		if(x == 0)
+		
+		if(x == 0) // Root of 0 is 0 - return now, we don't need to do the work, and we can't divide by 0 anyway.
 			return 0;
 		else if(x < 0)
 		{
-			System.out.println("Negative number, returning -1.");
+			//System.out.println("Negative number, returning -1.");
 			return -1;
 		}
 		two = x / one;
-		while (!isWithinPrecisionMargin(one, two) && !found) {
+		
+		while (!isWithinPrecisionMargin(one, two) && !found) 
+		{
 			two = x / one;
-			if (one == two) {
+			if (one == two) 
+			{
 				result = one;
 				found = true;
-			} else {
+			} else 
+			{
 				one = (one + two) / 2.0;
 			}
 		}
-		if (!found)
+		if (!found) // Got to the required precision margin.
 			result = one;
 		return result;
 	}
