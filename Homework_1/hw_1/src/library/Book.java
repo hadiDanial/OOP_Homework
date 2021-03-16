@@ -1,27 +1,33 @@
 package library;
 
-public class Book {
+public class Book 
+{
 	private String title;
 	private Author auth;
 
-	public Book(String title, Author auth) {
+	public Book(String title, Author auth) 
+	{
 		this.title = title;
 		this.auth = auth;
 	}
 
-	public String getTitle() {
+	public String getTitle() 
+	{
 		return title;
 	}
 
-	public String getAuthorName() {
+	public String getAuthorName() 
+	{
 		return auth.getName();
 	}
 
-	public int getAuthorBirthYear() {
+	public int getAuthorBirthYear() 
+	{
 		return auth.getBirthYear();
 	}
 
-	public String toString() {
+	public String toString() 
+	{
 		return title + " written by " + auth.toString();
 	}
 

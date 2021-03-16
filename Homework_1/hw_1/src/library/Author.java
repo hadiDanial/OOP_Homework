@@ -1,27 +1,34 @@
 package library;
 
-public class Author {
+public class Author 
+{
+	
 	private String name;
 	private int birthYear;
 
-	public Author(String name, int birthYear) {
+	public Author(String name, int birthYear) 
+	{
 		this.name = name;
 		this.birthYear = birthYear;
 	}
 
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 
-	public int getBirthYear() {
+	public int getBirthYear() 
+	{
 		return birthYear;
 	}
 
-	public int getAge(int thisYear) {
+	public int getAge(int thisYear) 
+	{
 		return thisYear - birthYear;
 	}
 
-	public String toString() {
+	public String toString() 
+	{
 		return name + "(" + birthYear + ")";
 	}
 
