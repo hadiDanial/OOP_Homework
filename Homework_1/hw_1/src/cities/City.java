@@ -1,28 +1,14 @@
 package cities;
 
+/**
+ * Describes a city by its name and the roads connected to it.
+ */
 public class City 
 {
 	private Road[] roads;
 	private String name;
 	private int numRoads;
-	private int maxRoadsNum = 10;
-	
-	
-//public static void main(String args[])
-//{
-//	City karmiel = new City("Karmiel");
-//	City metula = new City("Metula");
-//	City telAviv = new City("Tel-Aviv");
-//	City jerusalem = new City("Jerusalem");
-//
-//	new Road(metula, karmiel, 50);
-//	new Road(karmiel, telAviv, 100);
-//	new Road(telAviv, jerusalem, 80);
-//	new Road(jerusalem, metula, 175);
-//
-//	System.out.println(karmiel.nearestCity());
-//
-//}
+	private int maxRoadsNum = 10;	
 	
 	public City(String name)
 	{
@@ -57,7 +43,9 @@ public class City
 		}
 	}
 	
-	/// Returns the other city connected to this road
+	/**
+	 * Returns the other city connected to this road
+	 */
 	private City getOtherCity(Road road)
 	{
 		// We don't know if the other city is stored in city1 or city2

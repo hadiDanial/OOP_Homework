@@ -89,3 +89,10 @@ hs_err_pid*
 *.xmi
 *.index
 *.index
+.metadata/.plugins/org.eclipse.core.resources/.projects/hw_1/.markers.snap
+.metadata/.plugins/org.eclipse.core.resources/.projects/hw_1/.syncinfo.snap
+.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap
+.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
+.metadata/.plugins/org.eclipse.debug.ui/launchConfigurationHistory.xml
+.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+.metadata/.plugins/org.eclipse.jdt.core/4161811791.index

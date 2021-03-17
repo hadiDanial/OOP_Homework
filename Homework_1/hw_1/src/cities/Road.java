@@ -1,5 +1,8 @@
 package cities;
 
+/**
+ * Represents a Road between two City objects.
+ */
 public class Road 
 {
 
@@ -29,6 +32,9 @@ public class Road
 		return length;
 	}
 	
+	/**
+	 * Connects the road to both cities.
+	 */
 	private void connectCities()
 	{
 		city1.connect(this);
