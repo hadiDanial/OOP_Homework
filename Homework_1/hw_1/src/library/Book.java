@@ -1,5 +1,8 @@
 package library;
 
+/**
+ * Represents a Book by its name and author.
+ */
 public class Book 
 {
 	private String title;

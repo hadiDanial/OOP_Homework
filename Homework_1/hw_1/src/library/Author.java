@@ -1,5 +1,8 @@
 package library;
 
+/**
+ * Represents an Author via his name and birth year.
+ */
 public class Author 
 {
 	
