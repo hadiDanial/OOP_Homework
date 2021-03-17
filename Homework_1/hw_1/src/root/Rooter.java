@@ -1,15 +1,10 @@
 package root;
 
+/**
+ * A class to calculate the square root of a number, up to a given precision margin.
+ */
 public class Rooter
 {
-//	public static void main(String[] args)
-//	{
-//		Rooter r = new Rooter(0.1);
-//		System.out.println(r.sqrt(2));
-//		r.setPrecision(0.00001);
-//		System.out.println(r.sqrt(-5));
-//	}
-
 	private double precision;
 
 	public Rooter(double precision)
@@ -22,7 +17,8 @@ public class Rooter
 		this.precision = precision;
 	}
  
-	/// Returns the square root of x. If x is negative, returns -1.
+	/** Returns the square root of x. If x is negative, returns -1.
+	 */
 	public double sqrt(double x)
 	{
 		double one = x / 2, two;
@@ -33,7 +29,6 @@ public class Rooter
 			return 0;
 		else if(x < 0)
 		{
-			//System.out.println("Negative number, returning -1.");
 			return -1;
 		}
 		two = x / one;
@@ -55,8 +50,9 @@ public class Rooter
 		return result;
 	}
 
-	/// Returns true if the difference between one and two is lower than the
-	/// precision margin.
+	/** 
+	 * Returns true if the difference between one and two is lower than the precision margin.
+	 */
 	private boolean isWithinPrecisionMargin(double one, double two)
 	{
 		double diff = one - two;
