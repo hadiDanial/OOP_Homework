@@ -52,7 +52,7 @@ public class City
 		City c1, c2;
 		c1 = road.getCity1();
 		c2 = road.getCity2();
-		if(c1.name == name) // city1 is this city, so return the other city
+		if(c1 == this) // city1 is this city, so return the other city
 			return c2;
 		else return c1; // city2 is this city, so return city1
 	}
