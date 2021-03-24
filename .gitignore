@@ -80,7 +80,7 @@ local.properties
 *.rar
 
 .metadata/
-
+.metadata1/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -88,12 +88,5 @@ hs_err_pid*
 *.resources
 *.xmi
 *.index
-*.index
-.metadata/.plugins/org.eclipse.core.resources/.projects/hw_1/.markers.snap
-.metadata/.plugins/org.eclipse.core.resources/.projects/hw_1/.syncinfo.snap
-.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap
-.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
-.metadata/.plugins/org.eclipse.debug.ui/launchConfigurationHistory.xml
-.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
-.metadata/.plugins/org.eclipse.jdt.core/4161811791.index
+
 ExDetails.java
