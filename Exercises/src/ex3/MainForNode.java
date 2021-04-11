@@ -16,19 +16,19 @@ public class MainForNode {
 		l.addAtTail(4);
 		System.out.println(l);
 	}
-
-	private static void nodeMainTest() {
-		Node n1 = new Node(1, null, null);
-		Node n2 = new Node(2, null, n1);
-		Node n3 = new Node(3, n2, null);
-		Node n4 = new Node(4, n1, n3);
-		System.out.println(n4);
-
-		for(Node c = n2; c != null; c = c.getNext())
-			System.out.println(c.getVal() + " ");
-		System.out.println();
-		for(Node c = n3; c != null; c = c.getPrev())
-			System.out.println(c.getVal() + " ");
-	}
+//
+//	private static void nodeMainTest() {
+//		Node n1 = new Node(1, null, null);
+//		Node n2 = new Node(2, null, n1);
+//		Node n3 = new Node(3, n2, null);
+//		Node n4 = new Node(4, n1, n3);
+//		System.out.println(n4);
+//
+//		for(Node c = n2; c != null; c = c.getNext())
+//			System.out.println(c.getVal() + " ");
+//		System.out.println();
+//		for(Node c = n3; c != null; c = c.getPrev())
+//			System.out.println(c.getVal() + " ");
+//	}
 
 }
