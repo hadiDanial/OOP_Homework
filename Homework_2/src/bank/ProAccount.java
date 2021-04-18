@@ -46,11 +46,11 @@ public class ProAccount extends Account
 	private String historyToString()
 	{
 		StringBuilder sb = new StringBuilder("[");
-		for(int i = 0; i < index; i++)
+		for(int i = 0; i < index - 1; i++)
 		{
 			sb.append(history[i] + ",");
 		}
-		sb.append(history[index]);
+		sb.append(history[index - 1]);
 		sb.append("]");
 		return sb.toString();
 	}

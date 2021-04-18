@@ -6,23 +6,7 @@ public class Board
 	protected int n, m;
 
 	private int cellCount;
-	
-//	public static void main(String[] args) {
-//		Player p1 = new Player("Bibi", 'B');
-//		Player p2 = new Player("Gantz", 'G');
-//		Board b = new Board(3,4);
-//		b.set(0, 0, p1);
-//		b.set(1, 0, p1);
-//		b.set(2, 2, p2);
-//		b.set(0, 0, p2);
-//		b.set(0, 1, p1);
-//		System.out.print(b);
-//		System.out.println("Max(1,0) -> " + b.maxLineContaining(1, 0));
-//		System.out.println("Max(2,2) -> " + b.maxLineContaining(2, 2));
-//		System.out.println("Max(3,1) -> " + b.maxLineContaining(4, 3));
-//
-//	}
-//	
+
 	
 	public Board(int n, int m)                           
 	{
@@ -87,8 +71,8 @@ public class Board
 		
 		horizontalCount = getHorizontalCount(p, i, j);
 		verticalCount = getVerticalCount(p, i, j);
-		forwardDiagonalCount = getDiagonal(p, i, j, true);
-		backwardsDiagonalCount = getDiagonal(p, i, j, false);
+		forwardDiagonalCount = getDiagonalCount(p, i, j, true);
+		backwardsDiagonalCount = getDiagonalCount(p, i, j, false);
 		
 		// Return the maximum line
 		return Math.max(Math.max(horizontalCount, verticalCount),Math.max(forwardDiagonalCount, backwardsDiagonalCount));
@@ -104,18 +88,24 @@ public class Board
 	private int getHorizontalCount(Player p, int x, int y) 
 	{
 		int count = 1, initX = x;
+		boolean done = false;
 		x++;
-		while(isValidNumber(x, n)) 
+		while(isValidNumber(x, n) && !done) 
 		{
 			if(checkCell(p, x, y))
 				count++;
+			else
+				done = true;
 			x++;		
 		}
 		x = initX - 1;
-		while(isValidNumber(x, n))
+		done = false;
+		while(isValidNumber(x, n) && !done)
 		{
 			if(checkCell(p, x, y))
 				count++;
+			else
+				done = true;
 			x--;	
 		}
 		return count;
@@ -131,19 +121,24 @@ public class Board
 	private int getVerticalCount(Player p, int x, int y) 
 	{
 		int count = 1, initY = y;
+		boolean done = false;
 		y++;
 
-		while(isValidNumber(y, m))
+		while(isValidNumber(y, m) && !done)
 		{
 			if(checkCell(p, x, y))
 				count++;
+			else
+				done = true;
 			y++;		
 		}
 		y = initY - 1;
-		while(isValidNumber(y, m))
+		while(isValidNumber(y, m) && !done)
 		{
 			if(checkCell(p, x, y))
 				count++;
+			else
+				done = true;
 			y--;	
 		}
 		return count;
@@ -157,25 +152,31 @@ public class Board
 	 * @param forwards If true, checks the forwards diagonal (left to right), otherwise check the other diagonal (right to left).
 	 * @return Count of cells the player has captured diagonally.
 	 */
-	private int getDiagonal(Player p, int x, int y, boolean forwards)
+	private int getDiagonalCount(Player p, int x, int y, boolean forwards)
 	{
 		int count = 1, initX = x, initY = y;
 		int sign = (forwards) ? 1 : -1;
+		boolean done = false;
+
 		x++;
 		y += sign;
-		while(isValidNumber(x, n) && isValidNumber(y, m)) 
+		while(isValidNumber(x, n) && isValidNumber(y, m) && !done) 
 		{
 			if(checkCell(p, x, y))
 				count++;
+			else
+				done = true;
 			x++;
 			y += sign;
 		}
 		x = initX - 1;
 		y = initY - sign;
-		while(isValidNumber(x, n) && isValidNumber(y, m)) 
+		while(isValidNumber(x, n) && isValidNumber(y, m) && !done) 
 		{
 			if(checkCell(p, x, y))
 				count++;
+			else
+				done = true;
 			x--;
 			y -= sign;
 		}
@@ -206,8 +207,31 @@ public class Board
 		return ((num >= 0) && (num <= max - 1));
 	}
 
+	/**
+	 *  Returns true if the coordinate <i, j> is valid
+	 */
 	private boolean isValid(int i, int j)
 	{
 		return isValidNumber(i, n) && isValidNumber(j, m);
 	}
+	
+	
+	
+	
+//	public static void main(String[] args) {
+//		Player p1 = new Player("Bibi", 'B');
+//		Player p2 = new Player("Gantz", 'G');
+//		Board b = new Board(3,4);
+//		b.set(0, 0, p1);
+//		b.set(1, 0, p1);
+//		b.set(2, 2, p2);
+//		b.set(0, 0, p2);
+//		b.set(0, 1, p1);
+//		System.out.print(b);
+//		System.out.println("Max(1,0) -> " + b.maxLineContaining(1, 0));
+//		System.out.println("Max(2,2) -> " + b.maxLineContaining(2, 2));
+//		System.out.println("Max(3,1) -> " + b.maxLineContaining(4, 3));
+//
+//	}
+//	
 }

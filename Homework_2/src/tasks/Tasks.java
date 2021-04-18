@@ -79,7 +79,7 @@ public class Tasks
 	 * @param order The order array.
 	 * @param task The task at the start of the dependency chain.
 	 * @param index Index to start insertion from.
-	 * @return
+	 * @return The index after the insertion.
 	 */
 	private int addTaskOrder(int[] order, Task task, int index) 
 	{

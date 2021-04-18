@@ -19,7 +19,8 @@ public class Node
 		Node n = this;
 		for(int i = 0; i < s.length(); i++)
 		{
-			index = letterToInt(s.charAt(i));
+			// Check if character at index i exists
+			index = letterToInt(s.charAt(i)); 
 			if(n.children[index] == null)
 				return 0;
 			n = n.children[index];
@@ -52,42 +53,10 @@ public class Node
 			return c - 'a';
 		}
 	}
-	
-	@SuppressWarnings("unused")
-	private char intToLetter(int num)
-	{
-		char c = (char) ('a' + num);
-		if(c > 'z') c = 'z';
-		return c;
-	}
 
 	
 	private boolean isLowerCase(char c)
 	{
 		return (c <= 'z' && c >= 'a');
-	}
-	
-	private String treeToString()
-	{
-		StringBuilder sb = new StringBuilder("[");
-		Node n = this;
-		
-		for(int i = 0; i < n.children.length; i++)
-		{
-			if(n.children[i] != null)
-				sb.append(n.children[i].nodeToString());
-		}
-		
-		sb.replace(sb.length() - 2, sb.length(), "]");
-		return sb.toString();
-	}
-	
-	private String nodeToString()
-	{
-		StringBuilder sb = new StringBuilder("<");
-		
-		sb.append(">, ");
-		return sb.toString();
-
 	}
 }

@@ -21,7 +21,7 @@ public class FourInARow extends Game
 		int y;
 		System.out.println(p + ", please enter column: ");
 		y = s.nextInt();
-		while(!isEmpty(0, y))
+		while(!isEmpty(0, y)) // If the top element is not empty then the column is full
 		{
 			System.out.println("Column is full...");
 			System.out.println(p + ", please enter column: ");

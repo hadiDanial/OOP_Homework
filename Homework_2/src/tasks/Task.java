@@ -73,8 +73,10 @@ public class Task
 			count++;
 			result = result.getPrevious();
 		}
-		if(count >= maxNum) return null; // Means that the dependencies are cyclic
-		else return result;
+		if(count >= maxNum) // Means that the dependencies are cyclic
+			return null; 
+		else 
+			return result;
 	}
 
 	/**
