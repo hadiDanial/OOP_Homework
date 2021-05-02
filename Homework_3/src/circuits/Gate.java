@@ -1,7 +1,5 @@
 package circuits;
 
-import java.util.NoSuchElementException;
-
 public abstract class Gate 
 {
 	protected Gate[] inGates;
@@ -11,28 +9,23 @@ public abstract class Gate
 		this.inGates = inGates;
 	}
 	
-	
-	protected Gate()
-	{
-		inGates = null; //??????
-	}
-	
-	public boolean calc()                                    
+	public boolean calc() throws CircuitException                           
 	{ 
-		if(inGates == null) return func(null);
+		if(inGates == null) return func(null); // add an emptyFunc function?
 		boolean[] values = new boolean[inGates.length];
 		for (int i = 0; i < values.length; i++) 
 		{
-			if(inGates[i] == null) 
-				throw new NoSuchElementException(); // TODO throw CircuitException
-			else if(inGates[i].inGates == null)
-				values[i] = inGates[i].func(null); 
-			else
+			if(inGates[i] == null) // Value for a gate not defined
+				throw new CircuitException();
+//			else if(inGates[i].inGates == null) // No inner gates for a gate
+//				values[i] = inGates[i].func(null); 
+			else // Calculate a gate's value
 				values[i] = inGates[i].calc();
 		}
 		return func(values);
 	}
-	protected abstract boolean func(boolean[] inValues);// TODO throw CircuitException     
+	
+	protected abstract boolean func(boolean[] inValues) throws CircuitException;
 
 	public abstract String getName();                                            
 
@@ -55,20 +48,4 @@ public abstract class Gate
 		}
 		return sb.toString();
 	}
-
-	
-	protected static Gate[] getGateArray(Gate gate)
-	{
-		Gate[] gates = new Gate[1];
-		gates[0] = gate;
-		return gates;
-	}
-	protected static Gate[] getGateArray(Gate g1, Gate g2)
-	{
-		Gate[] gates = new Gate[2];
-		gates[0] = g1;
-		gates[1] = g2;
-		return gates;
-	}
-
 }

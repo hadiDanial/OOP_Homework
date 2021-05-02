@@ -1,7 +1,5 @@
 package circuits;
 
-import java.util.NoSuchElementException;
-
 public class VarGate extends Gate
 {
 	private String name;
@@ -9,16 +7,16 @@ public class VarGate extends Gate
 	
 	public VarGate(String name)
 	{
-		super();
+		super(null);
 		this.name = name;
 	}
 	
 	@Override
-	protected boolean func(boolean[] inValues) 
+	protected boolean func(boolean[] inValues) throws CircuitException
 	{
 		if(hasBeenSet) 
 			return value;
-		throw new NoSuchElementException(); // TODO throw CircuitException
+		throw new CircuitException("VarGate not defined!");
 	}
 
 	@Override
@@ -30,7 +28,12 @@ public class VarGate extends Gate
 	@Override
 	public Gate simplify() 
 	{
-		return null;
+		if(!hasBeenSet) 
+			return this;
+		if(value) 
+			return TrueGate.instance();
+		else 
+			return FalseGate.instance();
 	}
 	
 	public void setVal(boolean value)

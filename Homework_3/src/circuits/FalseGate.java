@@ -6,7 +6,7 @@ public class FalseGate extends Gate
 
 	private FalseGate()
 	{
-		super();
+		super(null);
 	}
 	
 	public static Gate instance()
@@ -29,8 +29,8 @@ public class FalseGate extends Gate
 	}
 
 	@Override
-	public Gate simplify() {
-		// TODO Auto-generated method stub
-		return null;
+	public Gate simplify() 
+	{
+		return instance;
 	}
 }
