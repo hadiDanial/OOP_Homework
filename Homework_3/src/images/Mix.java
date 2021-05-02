@@ -11,7 +11,7 @@ public class Mix extends BinaryImageDecorator
 	}
 
 	@Override
-	protected RGB getBoth(int x, int y)
+	protected RGB getColorFromBoth(int x, int y)
 	{
 		return RGB.mix(base1.get(x, y), base2.get(x, y), alpha);
 	}

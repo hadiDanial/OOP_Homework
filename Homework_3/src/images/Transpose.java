@@ -14,6 +14,9 @@ public class Transpose extends ImageDecorator
 		return base.get(y, x);
 	}
 	
+	/**
+	 * Sets the ImageDecorator dimensions to be a transpose of the base image.
+	 */
 	@Override
 	protected void setDimensions() 
 	{

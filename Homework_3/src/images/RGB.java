@@ -11,8 +11,6 @@ public class RGB
 	public static final RGB RED = new RGB(1,0,0);
 	public static final RGB GREEN = new RGB(0,1,0);
 	public static final RGB BLUE = new RGB(0,0,1);	
-
-	
 	
 	public RGB(double red, double green, double blue)
 	{
@@ -49,21 +47,21 @@ public class RGB
 	
 	public RGB filter(RGB filter)
 	{
-		return new RGB(red * filter.red, green * filter.green, blue * filter.blue);
+		return new RGB(red * filter.getRed(), green * filter.getGreen(), blue * filter.getBlue());
 	}
 	
 
 	public static RGB superpose(RGB rgb1, RGB rgb2) 
 	{
-		RGB add = new RGB(rgb1.red + rgb2.red, rgb1.green + rgb2.green, rgb1.blue + rgb2.blue);
+		RGB add = new RGB(rgb1.getRed() + rgb2.getRed(), rgb1.getGreen() + rgb2.getGreen(), rgb1.getBlue() + rgb2.getBlue());
 		return add;
 	}
 
 	public static RGB mix(RGB rgb1, RGB rgb2, double alpha)
 	{
-		double r = alpha * rgb1.red + (1-alpha) * rgb2.red;
-		double g = alpha * rgb1.green + (1-alpha) * rgb2.green;
-		double b = alpha * rgb1.blue + (1-alpha) * rgb2.blue;
+		double r = alpha * rgb1.getRed() + (1-alpha) * rgb2.getRed();
+		double g = alpha * rgb1.getGreen() + (1-alpha) * rgb2.getGreen();
+		double b = alpha * rgb1.getBlue() + (1-alpha) * rgb2.getBlue();
 		return new RGB(r,g,b);
 	}
 	
@@ -73,6 +71,9 @@ public class RGB
 		return String.format("<%.4f, %.4f, %.4f>", red, green, blue);
 	}
 	
+	/**
+	 * Clamps the RGB values between 0 and 1.
+	 */
 	private void clampRGBValues() 
 	{
 		red = clamp(red, 0, 1);
@@ -80,6 +81,13 @@ public class RGB
 		blue = clamp(blue, 0, 1);
 	}
 	
+	/**
+	 * Clamps value between min and max.
+	 * @param value Value to clamp
+	 * @param min Minimum value
+	 * @param max Maximum value
+	 * @return value clamped between min and max.
+	 */
 	private double clamp(double value, double min, double max) 
 	{
 		if(value < min) value = min;

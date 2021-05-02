@@ -24,6 +24,7 @@ public class MainForImages {
 		Displayer.display(i9);
 	}
 
+	@SuppressWarnings("unused") // Function for testing. Can only display one image at a time, so the rest are unused.
 	protected static void testAllImages() {
 		Image i = new Gradient(200, 100, RGB.RED, new RGB(1, 1, 0));
 		//Displayer.display(i);
@@ -55,7 +56,7 @@ public class MainForImages {
 		//Displayer.display(mix);
 		
 		Image twoC = new TwoColorImage(200, 100, RGB.BLACK, RGB.RED, new Func1());
-		Displayer.display(twoC);
+		//Displayer.display(twoC);
 	}
 
 }

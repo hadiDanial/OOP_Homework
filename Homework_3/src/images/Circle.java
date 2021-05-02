@@ -4,39 +4,36 @@ public class Circle extends BaseImage
 {
 	private int radius;
 	private int centerX, centerY;
-	private RGB center, outside;
-	
 	
 	public Circle(int width, int height, int centerX, int centerY, int radius, RGB center, RGB outside) 
 	{
-		super(width, height);
+		super(width, height, center, outside);
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.radius = radius;
-		this.center = center;
-		this.outside = outside;
 	}
 	
 	public Circle(int size, int radius, RGB center, RGB outside) 
 	{
-		super(size, size);
+		super(size, size, center, outside);
 		centerX = size/2;
 		centerY = size/2;
 		this.radius = radius;
-		this.center = center;
-		this.outside = outside;
 	}
 	
 	@Override
 	public RGB get(int x, int y) 
 	{
-		double distance = getDistance(x, y);
-		if(distance > radius) return outside;
+		double distance = getDistanceFromCenter(x, y);
+		if(distance > radius) return color2;
 		double percent = 1 - distance/radius;
-		return RGB.mix(center, outside, percent);
+		return RGB.mix(color1, color2, percent);
 	}
 	
-	private double getDistance(int x, int y)
+	/**
+	 * Returns the distance of (x, y) from the center of the circle.
+	 */
+	private double getDistanceFromCenter(int x, int y)
 	{
 		double deltaX = x - centerX;
 		double deltaY = y - centerY;

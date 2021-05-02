@@ -12,6 +12,9 @@ public abstract class BinaryImageDecorator implements Image
 		setDimensions();
 	}
 	
+	/**
+	 * Sets the BinaryImageDecorator dimensions to match the largest values of the base image dimensions.
+	 */
 	protected void setDimensions()
 	{
 		width = Math.max(base1.getWidth(), base2.getWidth());
@@ -30,34 +33,43 @@ public abstract class BinaryImageDecorator implements Image
 	{
 		return height;
 	}
-	
-	protected boolean pointInImageBounds(Image img, int x, int y)
-	{
-		return (x >= 0 && x < img.getWidth() && y >= 0 && y < img.getHeight());
-	}
-	
-	
+		
 	@Override
 	public RGB get(int x, int y) 
 	{
 		boolean bounds1 = pointInImageBounds(base1, x, y);
 		boolean bounds2 = pointInImageBounds(base2, x, y);
-		if(bounds1 && bounds2) return getBoth(x, y);
-		else if(bounds1 && !bounds2) return getFirst(x, y);
-		else if(!bounds1 && bounds2) return getSecond(x, y);
-		else return getNone(x, y);
+		if(bounds1 && bounds2) return getColorFromBoth(x, y);
+		else if(bounds1 && !bounds2) return getColorFromImage(base1, x, y);
+		else if(!bounds1 && bounds2) return getColorFromImage(base2, x, y);
+		else return getDefaultNone(x, y);
 	}
 	
-	protected abstract RGB getBoth(int x, int y);
-	protected RGB getFirst(int x, int y)
+	/**
+	 * Returns true if the point (x, y) is within the image bounds.
+	 */
+	protected boolean pointInImageBounds(Image img, int x, int y)
 	{
-		return base1.get(x, y);
+		return (x >= 0 && x < img.getWidth() && y >= 0 && y < img.getHeight());
 	}
-	protected RGB getSecond(int x, int y)
+	
+	/**
+	 * Returns the color at point (x, y) as some combination of the two base images.
+	 */
+	protected abstract RGB getColorFromBoth(int x, int y);
+	
+	/**
+	 * Returns the color at point (x, y) from the image.
+	 */
+	protected RGB getColorFromImage(Image img, int x, int y)
 	{
-		return base2.get(x, y);
+		return img.get(x, y);
 	}
-	protected RGB getNone(int x, int y)
+	
+	/**
+	 * Returns the default color (from neither image).
+	 */
+	protected RGB getDefaultNone(int x, int y)
 	{
 		return RGB.BLACK;
 	}

@@ -12,7 +12,9 @@ public abstract class ImageDecorator implements Image
 		setDimensions();
 	}
 
-
+	/**
+	 * Set the ImageDecorator dimensions to match the base.
+	 */
 	protected void setDimensions() 
 	{
 		width = base.getWidth();
