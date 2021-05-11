@@ -9,8 +9,9 @@ public class AndGate extends Gate
 	}
 
 	@Override
-	protected boolean func(boolean[] inValues) 
+	protected boolean func(boolean[] inValues) throws CircuitException 
 	{
+		if(inValues == null) throw new CircuitException(getName() + " has no in gates!");
 		for (int i = 0; i < inValues.length; i++) 
 		{
 			if(!inValues[i]) return false;

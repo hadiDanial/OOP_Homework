@@ -20,8 +20,8 @@ public class MainForGates {
 		Gate g2 = new Or2Gate(v1, new NotGate(v2)); 
 		Gate out = new AndGate(new Gate[] { g1, g2, TrueGate.instance() });
 		Gate simple = out.simplify();		
-		v1.setVal(true);
-//		v2.setVal(false);
+		v1.setVal(false);
+		v2.setVal(true);
 //		System.out.println(out + " = " + out.calc());
 		System.out.println(out + " = " + simple);// + " = " + simple.calc());
 		simple = out.simplify();	

@@ -4,10 +4,10 @@ public class MainForImages {
 
 	public static void main(String[] args) 
 	{
-		//testAllImages();
-
-		testFinalDrawing();
+		testAllImages();
+//		testFinalDrawing();
 	}
+
 
 	protected static void testFinalDrawing() {
 		Image i1 = new Gradient(500, 500, RGB.BLUE, RGB.BLACK);
@@ -56,7 +56,7 @@ public class MainForImages {
 		//Displayer.display(mix);
 		
 		Image twoC = new TwoColorImage(200, 100, RGB.BLACK, RGB.RED, new Func1());
-		//Displayer.display(twoC);
+		Displayer.display(twoC);
 	}
 
 }

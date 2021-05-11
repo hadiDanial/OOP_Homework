@@ -59,6 +59,7 @@ public class RGB
 
 	public static RGB mix(RGB rgb1, RGB rgb2, double alpha)
 	{
+		alpha = clamp(alpha, 0, 1);
 		double r = alpha * rgb1.getRed() + (1-alpha) * rgb2.getRed();
 		double g = alpha * rgb1.getGreen() + (1-alpha) * rgb2.getGreen();
 		double b = alpha * rgb1.getBlue() + (1-alpha) * rgb2.getBlue();
@@ -88,7 +89,7 @@ public class RGB
 	 * @param max Maximum value
 	 * @return value clamped between min and max.
 	 */
-	private double clamp(double value, double min, double max) 
+	private static double clamp(double value, double min, double max) 
 	{
 		if(value < min) value = min;
 		else if(value > max) value = max;

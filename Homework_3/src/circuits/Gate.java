@@ -11,14 +11,13 @@ public abstract class Gate
 	
 	public boolean calc() throws CircuitException                           
 	{ 
-		if(inGates == null) return func(null); // add an emptyFunc function?
+		if(inGates == null) return func(null); 
 		boolean[] values = new boolean[inGates.length];
 		for (int i = 0; i < values.length; i++) 
 		{
 			if(inGates[i] == null) // Value for a gate not defined
 				throw new CircuitException();
-//			else if(inGates[i].inGates == null) // No inner gates for a gate
-//				values[i] = inGates[i].func(null); 
+
 			else // Calculate a gate's value
 				values[i] = inGates[i].calc();
 		}

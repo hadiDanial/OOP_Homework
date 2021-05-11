@@ -42,7 +42,7 @@ public abstract class BinaryImageDecorator implements Image
 		if(bounds1 && bounds2) return getColorFromBoth(x, y);
 		else if(bounds1 && !bounds2) return getColorFromImage(base1, x, y);
 		else if(!bounds1 && bounds2) return getColorFromImage(base2, x, y);
-		else return getDefaultNone(x, y);
+		else return getDefaultColor(x, y);
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public abstract class BinaryImageDecorator implements Image
 	/**
 	 * Returns the default color (from neither image).
 	 */
-	protected RGB getDefaultNone(int x, int y)
+	protected RGB getDefaultColor(int x, int y)
 	{
 		return RGB.BLACK;
 	}
