@@ -20,6 +20,13 @@ public class ConnectionChecker<V>
 		return checkNeighbors(v1, v2, visitedSets);
 	}
 
+	/**
+	 * A recursive function which checks all the neighbors of the current vertex for the target (Same as the one in Graph)
+	 * @param current the current vertex
+	 * @param target the target vertex
+	 * @param visitedSets a set of visited vertices.
+	 * @return true if the target can be reached from the current vertex, otherwise false.
+	 */
 	private boolean checkNeighbors(V current, V target, Set<V> visitedSets) 
 	{
 		if(visitedSets.contains(current))

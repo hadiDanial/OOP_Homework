@@ -4,7 +4,6 @@ public class Place
 {
 	private int x;
 	private int y;
-	private int bound;
 
 	public Place(int x, int y, int bound)
 	{
@@ -12,7 +11,6 @@ public class Place
 		{			
 			this.x = x;
 			this.y = y;
-			this.bound = bound;
 		}
 		else
 			throw new IllegalArgumentException("Values out of bounds!");
@@ -41,19 +39,19 @@ public class Place
 		if(!(obj instanceof Place))
 				return false;
 		Place p = (Place) obj;
-		return (x == p.getX()) && (y == p.getY()) && (bound == p.bound);
+		return (x == p.getX()) && (y == p.getY());
 	}
 	
 	@Override
 	public int hashCode() 
 	{
-		return (x * x * x + y * y + 2 * bound + y) * 31;
+		return (x * x * x + y * y + 2 * y) * 31;
 	}
 	
 	@Override
 	public String toString() 
 	{
-		return "Bound: " + bound + " - <" + x + ", " + y +">";
+		return "Place <" + x + ", " + y +">";
 	}
 
 }

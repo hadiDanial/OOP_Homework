@@ -15,7 +15,7 @@ public class Maze implements GraphInterface<Place>
 	private static final char EMPTY_MARK = '.'; // null element
 	private static final char START_MARK = 'S'; // equals start
 	private static final char END_MARK = 'E';   // equals end
-	private static final char WALL_MARK = '@';  // any other element
+	private static final char WALL_MARK = '@';  // any other element/walls
 	
 	public Maze(int size, int startx, int starty, int endx, int endy) 
 	{
@@ -59,15 +59,17 @@ public class Maze implements GraphInterface<Place>
 			// Connect edges
 			// For each vertex, connect all surrounding vertices in the graph 
 			// Graph.addEdge adds a two way connection, so we have to make sure we only add each edge once in here
-			// Add edges on alternating elements (1):  1010
-			//                                         0101
+			// Add edges on alternating elements (1):  1010 - For each 1, add all surrounding vertices (if they're traversable)
+			//                                         0101 - Each 0 gets added when the ones next to it get added
 			//                                         1010
 			//                                         0101
 			boolean addEdge = true;
 //			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < size; i++) 
 			{
-				if(size % 2 == 0) addEdge = i % 2 == 0 ? true : false;
+				if(size % 2 == 0) 
+					addEdge = i % 2 == 0 ? true : false;
+				
 				for (int j = 0; j < size; j++)
 				{
 					if(invertedMaze[i][j] != null && addEdge)
@@ -122,12 +124,17 @@ public class Maze implements GraphInterface<Place>
 		}
 	}
 
-	
+	/**
+	 * @return True if the element in <i, j> is the start or end Place.
+	 */
 	private boolean isStartOrEndPlace(int i, int j) 
 	{
 		return maze[i][j].equals(start) || maze[i][j].equals(end);
 	}
 
+	/**
+	 * Checks if the element <i, j> is valid and adds an edge in the graph between it and point if it is valid.
+	 */
 	private void addEdge(int i, int j, Graph<Place> graph, Place point) throws GraphException 
 	{
 		if(isValidIndex(i, j) && invertedMaze[i][j] != null)
@@ -180,6 +187,9 @@ public class Maze implements GraphInterface<Place>
 		return places;		
 	}
 	
+	/**
+	 * Adds the element <i, j> in the invertedMaze to the List if it's valid and not null.
+	 */
 	private void addPlaceToNeighbors(int i, int j, List<Place> places)
 	{
 		if(isValidIndex(i, j) && invertedMaze[i][j] != null)

@@ -6,7 +6,7 @@ public class MainForEquiv
 	{
 		Equiv<String> equiv = new Equiv<>();
 		equiv.add("ball", "balloon");
-		System.out.println(equiv);
+		System.out.println(equiv); //toString can't be public :(
 		equiv.add("child", "person");
 		System.out.println(equiv);
 		equiv.add("girl", "child");
