@@ -11,6 +11,8 @@ public class MainForCities {
 		w.addCity("Salvador", "Brazil", 2677000);
 		w.addCity("Barcelona", "Spain", 1615000);
 		w.addCity("Rio de Janeiro", "Brazil", 6320000);
+		w.addCity("Aaa", "Brazil", 10);
+		w.addCity("Aba", "Brazil", 10);
 		System.out.println(w.report());
 		int bound = 2000000;
 		System.out.println("Cities with population under " + bound + ":");
