@@ -45,7 +45,7 @@ public class Place
 	@Override
 	public int hashCode() 
 	{
-		return (x * x * x + y * y + 2 * y) * 31;
+		return x | (y << 15); // (x * x * x + y * y + 2 * y) * 31; not unique enough
 	}
 	
 	@Override
