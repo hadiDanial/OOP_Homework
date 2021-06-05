@@ -147,6 +147,10 @@ public class Mines
 		return ((i >= 0 && i < height) && (j >= 0 && j < width));
 	}
 	
+	
+	/**
+	 * Holds data about a single cell in the grid.
+	 */
 	private class Cell
 	{
 		private boolean isOpen = false;
@@ -180,6 +184,9 @@ public class Mines
 			}
 		}
 
+		/**
+		 * Opens the cell and its neighbors.
+		 */
 		public void openCell() 
 		{
 			if(!isOpen)
@@ -203,6 +210,9 @@ public class Mines
 			}
 		}
 		
+		/**
+		 * @return A list of valid neighbors.
+		 */
 		private List<Cell> getNeighbors()
 		{
 			List<Cell> neighbors = new ArrayList<>();

@@ -45,12 +45,14 @@ public class MinesFX extends Application
 		audioManager = new AudioManager();
 		this.stage = stage;
 		root = new HBox();
+		
 		try 
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("mines.fxml"));
 			root = loader.load();
 			controller = loader.getController();
+			controller.setupController(this);
 		}
 		catch(IOException e)
 		{
@@ -58,12 +60,21 @@ public class MinesFX extends Application
 			return;
 		}
 		
+		setupGrid();
+				
+		setupStage(stage);
+	}
+
+	private void setupGrid() {
 		grid = new GridPane();
 		grid.setPadding(new Insets(10));
-		grid.setAlignment(Pos.CENTER_LEFT);
-		controller.setupController(this);
+		grid.setAlignment(Pos.CENTER);
+		grid.setHgap(2);
+		grid.setVgap(2);
 		root.getChildren().add(grid);
-				
+	}
+	
+	private void setupStage(Stage stage) {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setMinWidth(350);
@@ -74,15 +85,19 @@ public class MinesFX extends Application
 
 
 
+	/**
+	 * Resets the Mines grid with new parameters.
+	 */
 	public void reset(int width, int height, int numMines) 
 	{
 		grid.getChildren().clear();
 		mines = new Mines(height, width, numMines);
-		buttons = new ArrayList<>();
-		GridButtonHandler handler = new GridButtonHandler();
-		int alternate = 0;
-		String color, hoverColor = "-fx-background-color: rgb(198, 241, 192);"; //rgb(230, 234, 220);\";
+		buttons = new ArrayList<>(); // is this even used??? delete??
+		GridButtonHandler gridButtonHandler = new GridButtonHandler();
+		String color, hoverColor = "-fx-background-color: rgb(198, 241, 192);";
 		String normalCornerRadius = "-fx-background-radius: 0 0 0 0;", radiusFX;
+		int alternate = 0;
+		
 		for(int i = 0; i < height; i++)
 		{
 			for(int j = 0; j < width; j++)
@@ -98,26 +113,28 @@ public class MinesFX extends Application
 				}
 				GridButton button = new GridButton(mines.get(i, j), i, j, color, hoverColor, radiusFX);
 				buttons.add(button);
-				button.setOnMouseClicked(handler);
-				button.setOnMouseEntered(handler);
-				button.setOnMouseExited(handler);
+				button.setOnMouseClicked(gridButtonHandler);
+				button.setOnMouseEntered(gridButtonHandler);
+				button.setOnMouseExited(gridButtonHandler);
 				button.setPrefSize(buttonSize, buttonSize);
 				button.setMaxSize(buttonSize, buttonSize);
 				button.setMinSize(buttonSize, buttonSize);
-				button.setOnMouseEntered(handler);
 				grid.add(button, j, i);
 				alternate++;
 			}
 			if(width % 2 == 0) 
 				alternate++;
-		}
+		}	
+		updateStageDimensions(width, height);
+		startTime = System.currentTimeMillis();
+		isGameDone = false;
+	}
+
+	private void updateStageDimensions(int width, int height) {
 		stage.setMinWidth(width * buttonSize + 250);
 		stage.setMinHeight(height * buttonSize + 100);
 		stage.setWidth(width * buttonSize + 250);
 		stage.setHeight(height * buttonSize + 100);
-		
-		startTime = System.currentTimeMillis();
-		isGameDone = false;
 	}
 	
 	/**
@@ -169,14 +186,20 @@ public class MinesFX extends Application
 		
 	}
 
-	private void showEndScreen(String endMessage) {
-		// TODO Auto-generated method stub
+	/**
+	 * Shows the end screen with a message and the time played this match.
+	 * @param endMessage
+	 */
+	private void showEndScreen(String endMessage) 
+	{
 		mines.setShowAll(true);
 		isGameDone = true;
+		
 		Stage endStage = new Stage();
 		endStage.setWidth(350);
 		endStage.setHeight(150);
 		endStage.setTitle("Game Over");
+		
 		VBox vbox = new VBox();
 		Label endLabel = new Label(endMessage);
 		Label gameTime = new Label("You took " + (endTime - startTime) / 1000 + " seconds to finish.");
@@ -188,7 +211,9 @@ public class MinesFX extends Application
 		VBox.setMargin(gameTime, inset);
 		vbox.setPadding(inset);
 		vbox.getChildren().addAll(endLabel, gameTime);
+		
 		Scene scene = new Scene(vbox);
+		
 		endStage.setScene(scene);
 		endStage.show();	
 		
@@ -229,17 +254,17 @@ public class MinesFX extends Application
 					scaleUp.setDuration(Duration.millis(100));
 					scaleUp.setFromX(1);
 					scaleUp.setFromY(1);
-					scaleUp.setToX(1.1);
-					scaleUp.setToY(1.1);			
+					scaleUp.setToX(1.09);
+					scaleUp.setToY(1.09);			
 					scaleUp.setNode(btn);
 					scaleUp.play();
 				}
 				if(event.getEventType() == MouseEvent.MOUSE_EXITED)
 				{
 					btn.setNormalColor();				
-					scaleDown.setDuration(Duration.millis(80));
-					scaleDown.setFromX(1.1);
-					scaleDown.setFromY(1.1);
+					scaleDown.setDuration(Duration.millis(100));
+					scaleDown.setFromX(1.09);
+					scaleDown.setFromY(1.09);
 					scaleDown.setToX(1);
 					scaleDown.setToY(1);	
 					scaleDown.setNode(btn);

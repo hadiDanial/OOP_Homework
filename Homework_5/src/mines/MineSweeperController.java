@@ -34,8 +34,9 @@ public class MineSweeperController
     		numMines = Integer.parseInt(numMinesText.getText());
     		minesFX.reset(width, height, numMines);
     	}
-    	catch(Exception e)
+    	catch(NumberFormatException e)
     	{
+    		System.out.println("Int Parse Error! Please enter only integers!");
     		e.printStackTrace();
     	}
     }
