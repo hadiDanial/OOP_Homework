@@ -24,7 +24,6 @@ public class VotingMachine extends Application
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("votingMachine.fxml"));
 			root = loader.load();
-			//controller = loader.getController();
 		}
 		catch(IOException e)
 		{
