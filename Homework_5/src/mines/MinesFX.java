@@ -27,11 +27,12 @@ public class MinesFX extends Application
 	private GridPane grid;
 	private Mines mines;
 	private Stage stage;
-	private List<GridButton> buttons;
 	private AudioManager audioManager;
-	private static int buttonSize = 40;
+	private List<GridButton> buttons;
+	private static int defaultButtonSize = 40, currentButtonSize;
     private double startTime, endTime;
     private boolean isGameDone = false;
+    private static final int buttonSpacing = 2;
     
     public static void main(String[] args) 
 	{
@@ -65,15 +66,22 @@ public class MinesFX extends Application
 		setupStage(stage);
 	}
 
+	/**
+	 * Setup the grid settings.
+	 */
 	private void setupGrid() {
 		grid = new GridPane();
 		grid.setPadding(new Insets(10));
 		grid.setAlignment(Pos.CENTER);
-		grid.setHgap(2);
-		grid.setVgap(2);
+		grid.setHgap(buttonSpacing);
+		grid.setVgap(buttonSpacing);
 		root.getChildren().add(grid);
 	}
 	
+	/**
+	 * Setup the initial stage.
+	 * @param stage
+	 */
 	private void setupStage(Stage stage) {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -92,12 +100,12 @@ public class MinesFX extends Application
 	{
 		grid.getChildren().clear();
 		mines = new Mines(height, width, numMines);
-		buttons = new ArrayList<>(); // is this even used??? delete??
+		buttons = new ArrayList<>();
 		GridButtonHandler gridButtonHandler = new GridButtonHandler();
-		String color, hoverColor = "-fx-background-color: rgb(198, 241, 192);";
 		String normalCornerRadius = "-fx-background-radius: 0 0 0 0;", radiusFX;
 		int alternate = 0;
-		
+		double scalePercent = calculateButtonSize(width, height);
+		boolean alternateColor;
 		for(int i = 0; i < height; i++)
 		{
 			for(int j = 0; j < width; j++)
@@ -105,20 +113,20 @@ public class MinesFX extends Application
 				radiusFX = getCornerRadius(i, j, height, width, normalCornerRadius);
 				if(alternate % 2 == 0)
 				{
-					color = "-fx-background-color: rgb(171, 216, 81);";					
+					alternateColor = false;
 				}
 				else
 				{
-					color = "-fx-background-color: rgb(151, 204, 46);";					
+					alternateColor = true;
 				}
-				GridButton button = new GridButton(mines.get(i, j), i, j, color, hoverColor, radiusFX);
+				GridButton button = new GridButton(mines.get(i, j), i, j, alternateColor, radiusFX, scalePercent);
 				buttons.add(button);
 				button.setOnMouseClicked(gridButtonHandler);
 				button.setOnMouseEntered(gridButtonHandler);
 				button.setOnMouseExited(gridButtonHandler);
-				button.setPrefSize(buttonSize, buttonSize);
-				button.setMaxSize(buttonSize, buttonSize);
-				button.setMinSize(buttonSize, buttonSize);
+				button.setPrefSize(currentButtonSize, currentButtonSize);
+				button.setMaxSize(currentButtonSize, currentButtonSize);
+				button.setMinSize(currentButtonSize, currentButtonSize);
 				grid.add(button, j, i);
 				alternate++;
 			}
@@ -130,11 +138,38 @@ public class MinesFX extends Application
 		isGameDone = false;
 	}
 
-	private void updateStageDimensions(int width, int height) {
-		stage.setMinWidth(width * buttonSize + 250);
-		stage.setMinHeight(height * buttonSize + 100);
-		stage.setWidth(width * buttonSize + 250);
-		stage.setHeight(height * buttonSize + 100);
+	/**
+	 * Calculates the button size based on the grid size. 
+	 * @return The scale percentage (currentButtonSize / defaultButtonSize).
+	 */
+	private double calculateButtonSize(int width, int height) 
+	{		
+		// When the height/width are bigger than these values, the grid is too big to fit on the screen...
+		int maxHeightForDefaultSize = 23, maxWidthForDefaultSize = 40;
+		// Max pixel size: 1750x1000
+		int maxHeightPixels = 1000, maxWidthPixels = 1750;
+		if(height > maxHeightForDefaultSize || width > maxWidthForDefaultSize)
+		{
+			int buttonWidth = (int) ((double)(maxWidthPixels - width*buttonSpacing) / (width+buttonSpacing));
+			int buttonHeight = (int) ((double)(maxHeightPixels- width*buttonSpacing) / (height+buttonSpacing));
+			currentButtonSize = Math.min(buttonWidth, buttonHeight);
+		}
+		else // No need to scale the buttons down...
+		{
+			currentButtonSize = defaultButtonSize;
+		}
+		return (double) currentButtonSize / defaultButtonSize;
+	}
+
+	/**
+	 * Update the window dimensions to match the new grid size based on width and height.
+	 */
+	private void updateStageDimensions(int width, int height) 
+	{
+		stage.setMinWidth(width * (currentButtonSize + buttonSpacing) + 250);
+		stage.setWidth(width * (currentButtonSize + buttonSpacing) + 250);
+		stage.setMinHeight(height * (currentButtonSize + buttonSpacing) + 125);
+		stage.setHeight(height * (currentButtonSize + buttonSpacing) + 125);
 	}
 	
 	/**
@@ -162,6 +197,9 @@ public class MinesFX extends Application
 		return radiusFX;
 	}
 
+	/**
+	 * Open cell <i, j> when a button is pressed.
+	 */
 	private void onButtonPress(int i, int j)
 	{
 		if(mines.open(i, j))
@@ -170,8 +208,7 @@ public class MinesFX extends Application
 			{
 				endTime = System.currentTimeMillis();
 				audioManager.playSFX(AudioType.Win);
-				showEndScreen("You Won!");
-				
+				showEndScreen("You Won!");			
 			}
 			else
 				audioManager.playSFX(AudioType.Safe);
@@ -182,12 +219,21 @@ public class MinesFX extends Application
 			endTime = System.currentTimeMillis();
 			showEndScreen("You lost! Better luck next time...");
 		}
-		updateButtonText();
-		
+		updateButtonText();		
 	}
-
+	
 	/**
-	 * Shows the end screen with a message and the time played this match.
+	 * Set a flag on cell <i, j>.
+	 */
+	private void onSetFlag(int i, int j) 
+	{
+		mines.toggleFlag(i, j);
+		audioManager.playSFX(AudioType.Flag);
+		updateButtonText();
+	}
+	
+	/**
+	* Shows the end screen with a message and the time played this match.
 	 * @param endMessage
 	 */
 	private void showEndScreen(String endMessage) 
@@ -219,28 +265,26 @@ public class MinesFX extends Application
 		
 	}
 
-
-	private void onSetFlag(int x, int y) 
+	/**
+	 * Update the text for all the buttons.
+	 */
+	private void updateButtonText() 
 	{
-		mines.toggleFlag(x, y);
-		audioManager.playSFX(AudioType.Flag);
-		updateButtonText();
-	}
-	
-	private void updateButtonText() {
 		for(GridButton button : buttons)
 		{
-			button.setText(mines.get(button.getX(), button.getY()));
+			int i = button.getX(), j = button.getY();
+			button.updateButton(mines.get(i, j));
 		}
 	}
 	
+	/**
+	 * Handles mouse events for the grid buttons.
+	 */
 	private class GridButtonHandler implements EventHandler<MouseEvent>
 	{
 		@Override
 		public void handle(MouseEvent event) 
 		{
-			ScaleTransition scaleUp = new ScaleTransition();
-			ScaleTransition scaleDown = new ScaleTransition();
 			GridButton btn = (GridButton) event.getSource();
 			if(!isGameDone)
 			{
@@ -248,6 +292,10 @@ public class MinesFX extends Application
 					onButtonPress(btn.getX(), btn.getY());
 				if(event.getButton() == MouseButton.SECONDARY)
 					onSetFlag(btn.getX(), btn.getY());
+
+				// Animations.
+				ScaleTransition scaleUp = new ScaleTransition();
+				ScaleTransition scaleDown = new ScaleTransition();
 				if(event.getEventType() == MouseEvent.MOUSE_ENTERED)
 				{
 					btn.setHoverColor();

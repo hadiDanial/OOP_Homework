@@ -11,7 +11,7 @@ public class Mines
 	private int numCells; // number of cells/slots
 	private Cell[][] cells;
 	private boolean showAll = false;
-	
+	private boolean mineAddedForTester = false;
 	
 	public Mines(int height, int width, int numMines)
 	{
@@ -64,6 +64,7 @@ public class Mines
 		if(cells[i][j].isMine) 
 			return false;
 		cells[i][j].isMine = true;
+		mineAddedForTester = true;
 		return true;
 	}
 	
@@ -158,6 +159,7 @@ public class Mines
 		private boolean isMine = false;
 		private int numNearbyMines = 0;
 		private int x, y;
+		private boolean wasCalculated = false; // Whether the number of nearby mines was already calculated.
 		
 		public Cell(int x, int y)
 		{
@@ -175,6 +177,8 @@ public class Mines
 		 */
 		private void calculateNearbyMines() 
 		{
+			if(wasCalculated) // Prevents a stack overflow
+				return;
 			List<Cell> neighbors = getNeighbors();
 			numNearbyMines = 0;
 			for(Cell c : neighbors)
@@ -182,6 +186,7 @@ public class Mines
 				if(c.isMine)
 					numNearbyMines++;
 			}
+			wasCalculated = true;
 		}
 
 		/**
@@ -189,7 +194,10 @@ public class Mines
 		 */
 		public void openCell() 
 		{
-			if(!isOpen)
+			// We don't need to try and open this if the value was already calculated, 
+			// because if it should be open then it would've been open already.
+			// But we check again if a mine was added manually by the tester...
+			if(!isOpen && !wasCalculated || mineAddedForTester) 
 			{
 				isOpen = true;
 				calculateNearbyMines();

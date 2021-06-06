@@ -6,6 +6,9 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+/**
+ * Manages playing sound effects.
+ */
 public class AudioManager 
 {
     private String mineSFXFile = "src\\mines\\Sound Effects\\mineCell.wav";

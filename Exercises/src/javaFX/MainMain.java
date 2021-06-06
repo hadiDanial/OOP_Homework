@@ -27,7 +27,6 @@ public class MainMain extends Application {
 			return;
 		}
 
-		StackPane root = new StackPane();
 		Scene scene = new Scene(vbox);
 		stage.setScene(scene);
 		stage.show();
